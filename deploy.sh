@@ -16,7 +16,6 @@ start() {
 }
 stop() {
     echo "Stoping..."
-    deactivate
 }
 case "$ACTION" in
     start)
