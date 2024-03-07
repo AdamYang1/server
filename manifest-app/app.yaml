@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: python-sample
+  name: python-sample
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: python-sample
+  template:
+    metadata:
+      labels:
+        run: python-sample
+    spec:
+      containers:
+      - image: ${IMAGE}
+        name: app

@@ -1,0 +1,10 @@
+pyOpenSSL==0.13.1
+pyparsing==2.4.6
+python-dateutil==1.5
+pytz==2013.7
+PyYAML==5.1.2
+requests==2.22.0
+safety==1.8.5
+six==1.4.1
+urllib3==1.25.3
+tornado==5.1.1
