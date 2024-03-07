@@ -11,10 +11,12 @@ usage() {
 
 start() {
     echo "Starting..."
+    source /root/server-env/bin/activate
     python3 app.py
 }
 stop() {
     echo "Stoping..."
+    deactivate
 }
 case "$ACTION" in
     start)
