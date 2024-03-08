@@ -12,7 +12,7 @@ usage() {
 start() {
     echo "Starting..."
     source /root/server-env/bin/activate
-    python3 app.py
+    nohup python3 app.py > /dev/null 2>&1 &
 }
 stop() {
     echo "Stoping..."
