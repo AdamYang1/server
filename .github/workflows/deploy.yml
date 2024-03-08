@@ -34,6 +34,7 @@ jobs:
               echo "Failed to pull changes. Retrying..."
               RETRIES=\$((RETRIES+1))
               sleep 10  # Adjust sleep duration as needed
+              exit 1
             fi
           EOF
           if [ $? -eq 0 ]; then 
