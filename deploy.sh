@@ -13,6 +13,7 @@ start() {
     echo "Starting..."
     source /root/server-env/bin/activate
     nohup python3 app.py > /dev/null 2>&1 &
+    echo "Start success"
 }
 stop() {
     echo "Stoping..."
