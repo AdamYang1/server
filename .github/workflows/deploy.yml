@@ -22,5 +22,6 @@ jobs:
         ssh -o StrictHostKeyChecking=no root@106.15.139.48 << EOF
           cd server
           git pull
+          chmod +x ./deploy.sh
           ./deploy.sh restart
         EOF
