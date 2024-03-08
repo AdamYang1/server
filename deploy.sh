@@ -16,6 +16,14 @@ start() {
 }
 stop() {
     echo "Stoping..."
+    # Find the process ID of the Python script and send it a termination signal
+    PID=$(pgrep -f "python3 app.py")
+    if [ -n "$PID" ]; then
+        kill "$PID"
+        echo "Server stopped."
+    else
+        echo "Server is not running."
+    fi
 }
 case "$ACTION" in
     start)
