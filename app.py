@@ -1,36 +1,33 @@
-from flask import Flask
-# from pydantic import Field
+from flask import Flask, request, jsonify
+import requests
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return '''<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Serverless Devs - Powered By Serverless Devs</title>
-    <link href="https://example-static.oss-cn-beijing.aliyuncs.com/web-framework/style.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-<div class="website">
-    <div class="ri-t">
-        <h1>Devsapp</h1>
-        <h2>这是一个 Flask 项目</h2>
-        <span>自豪的通过Serverless Devs进行部署app</span>
-        <br/>
-        <p>您也可以快速体验： <br/>
-            • 下载Serverless Devs工具：npm install @serverless-devs/s<br/>
-            • 初始化项目：s init start-flask<br/>
+    return """hello mf"""
 
-            • 项目部署：s deploy<br/>
-            <br/>
-            Serverless Devs 钉钉交流群：33947367
-        </p>
-    </div>
-</div>
-</body>
-</html>
-'''
+@app.route('/test')
+def test():
+    # Get the IP address and port from the request parameters
+    ip_address = "47.254.85.209"
+    port = "8080"
+    path = "ask"
+
+    # Construct the full URL
+    url = f'http://{ip_address}:{port}/{path}'
+
+    # Make a GET request to the URL
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.text
+    except requests.exceptions.RequestException as e:
+        return f"Error: {e}", 500
+
+    # Return the data from the URL
+    return data
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000)
