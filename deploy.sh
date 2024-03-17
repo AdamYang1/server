@@ -11,7 +11,7 @@ usage() {
 
 start() {
     echo "Starting..."
-    source /root/server-env/bin/activate
+    pip3 install -r requirements.txt
     nohup python3 app.py > /dev/null 2>&1 &
     disown
     echo "Start success"

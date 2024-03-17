@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import requests
+from typing import Dict, Union, List
 app = Flask(__name__)
 
 
@@ -7,23 +8,40 @@ app = Flask(__name__)
 def index():
     return """hello mf"""
 
-@app.route('/test')
+@app.route('/test', methods=['POST'])
 def test():
-    # Get the IP address and port from the request parameters
-    ip_address = "47.254.85.209"
-    port = "8080"
-    path = "ask"
+    # Get the JSON data from the request
+    data = request.get_json()
 
-    # Construct the full URL
+    # If the request doesn't have JSON data, return an error
+    if not data:
+        return jsonify({'error': 'No JSON data provided'}), 400
+    if data is None:
+            return jsonify({"error": "Request must contain JSON data"})
+    if 'message' not in data:
+        return jsonify({"error": "Request must contain a 'message' key"})
+    
+    user_input = data['message']
+    conversation_id = data.get('conversation_id', None)
+
+    # TODO 模拟获取美国server的ip地址
+    ip_address = data.get('ip_address', '47.254.85.209')
+    port = data.get('port', '8080')
+    path = data.get('path', 'test')
     url = f'http://{ip_address}:{port}/{path}'
 
-    # Make a GET request to the URL
+    # Get the request body to send as JSON
+    request_body: Dict[str, Union[str, int, List[str]]] = {}
+    request_body['message'] = user_input
+    request_body['conversation_id'] = conversation_id
+
+    # Make a POST request to the URL with JSON data
     try:
-        response = requests.get(url)
+        response = requests.post(url, json=request_body)
         response.raise_for_status()
         data = response.text
     except requests.exceptions.RequestException as e:
-        return f"Error: {e}", 500
+        return jsonify({'error': str(e)}), 500
 
     # Return the data from the URL
     return data
